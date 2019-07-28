@@ -2,14 +2,11 @@
 # This is the user-interface definition of a Shiny web application. You can
 # run the application by clicking 'Run App' above.
 #
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+# Interface passes the application as Input to create te histogram for the application
 
 library(shiny)
 library(plotly)
-# Define UI for application that draws a histogram
+
 shinyUI (fluidPage(
   
   # Application title
@@ -30,6 +27,7 @@ shinyUI (fluidPage(
     mainPanel(
        h3("Incidents raised per month for the Application:"),
        plotlyOutput("Plot"),
+
        h3("Incidents raised:"),
        tableOutput("incidents_table")
     )

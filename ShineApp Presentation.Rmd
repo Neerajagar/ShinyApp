@@ -1,0 +1,62 @@
+---
+title: "ShinyApp"
+author: "Neeraj Agarwal"
+date: "July 28, 2019"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Project Overview
+
+Create an Shiny Application and deploy it on RStudio Server. This peer assessed assignment has two parts. 
+
+- Create a Shiny application and deploy it on Rstudio's servers. 
+- Use Slidify or Rstudio Presenter to pitch reproducible presentation about the application.
+
+## Application Overview
+
+This shiny app takes the two years of incident data for multiple applications from an application maintenance project and publish the histogram for individual selected applications. 
+Input for the histogram is application and Shiny app shows the incident count per month both in histogram and in a table.
+
+## Links
+
+- Data: Data is uploaded on Gits Hub to refer and download. This data has Incident details which includes, Incident number, Incident raised on Resolved date, status and Application.
+https://raw.githubusercontent.com/Neerajagar/ShinyApp/master/incidents.csv
+
+- Shiny App: Shiny App is published on the below link.
+
+https://neerajagr.shinyapps.io/ShinyApp/
+
+- Shiny App Files: Both ui & server files are uploaded in Github.
+
+
+
+## Slide with Plot
+
+```{r incidentdata, message=FALSE, warning= FALSE}
+
+library(readr)
+library(shiny)
+library(plotly)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+
+all_incidents <- read.csv("https://raw.githubusercontent.com/Neerajagar/ShinyApp/master/incidents.csv",header = TRUE,stringsAsFactors = F) 
+
+incidents <- data.frame(all_incidents$Number,all_incidents$application,format(as.POSIXct(all_incidents$Opened,format="%Y-%m-%d"),"%Y-%m"))
+
+names(incidents) <- c("Number","Application","Opened")
+
+incidents <-incidents %>% count(Application, Opened)
+
+#Total Recors:
+dim(incidents)
+
+# Sample Records
+head(incidents)
+```
+
